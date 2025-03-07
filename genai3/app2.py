@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Change this to a secure secret key
 
 # MongoDB Configuration
-app.config["MONGO_URI"] = "mongodb://localhost:27017/codellama"
+app.config["MONGO_URI"] = "mongodb+srv://dusagopi1:dusagopi1@cluster0.cjpnc.mongodb.net/codellama?retryWrites=true&w=majority"
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
 
