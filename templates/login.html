@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Code_G</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background: #fff;
+        }
+
+        .login-container {
+            flex: 1;
+            padding: 2rem;
+            max-width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-form {
+            max-width: 400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .branding-container {
+            flex: 1;
+            background: #6B46C1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+        }
+
+        .mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .mode-toggle button {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .mode-toggle .light {
+            background: #D53F8C;
+            color: white;
+        }
+
+        .mode-toggle .dark {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #1A202C;
+        }
+
+        .subtitle {
+            color: #718096;
+            margin-bottom: 2rem;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: #718096;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .divider span {
+            margin: 0 10px;
+        }
+
+        .google-btn {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #E2E8F0;
+            border-radius: 5px;
+            background: white;
+            color: #4A5568;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #4A5568;
+            font-size: 0.875rem;
+        }
+
+        .form-group label span {
+            color: #E53E3E;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #E2E8F0;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input::placeholder {
+            color: #A0AEC0;
+        }
+
+        .checkbox-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4A5568;
+        }
+
+        .forgot-password {
+            color: #4299E1;
+            text-decoration: none;
+        }
+
+        .sign-in-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: #D53F8C;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+        }
+
+        .register-link {
+            text-align: center;
+            color: #4A5568;
+        }
+
+        .register-link a {
+            color: #4299E1;
+            text-decoration: none;
+        }
+
+        .branding {
+            text-align: center;
+        }
+
+        .branding h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .branding p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <h1>Log in</h1>
+            <p class="subtitle">Enter your email and password to log in</p>
+
+            <button class="google-btn">
+                <img src="https://www.google.com/favicon.ico" alt="Google" width="20" height="20">
+                Log in with Google
+            </button>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label>Email<span>*</span></label>
+                    <input type="email" name="email" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password<span>*</span></label>
+                    <input type="password" name="password" placeholder="Min. 8 characters" required>
+                </div>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" name="remember">
+                        Keep me logged in
+                    </label>
+                    <a href="/forgot-password" class="forgot-password">Forget password?</a>
+                </div>
+                <button type="submit" class="sign-in-btn">Sign In</button>
+            </form>
+            <div class="register-link">
+                Not registered yet? <a href="/register">Create an Account</a>
+            </div>
+        </div>
+    </div>
+    <div class="branding-container">
+        <div class="mode-toggle">
+            <button class="light">Light mode</button>
+            <button class="dark">Dark mode</button>
+        </div>
+        <div class="branding">
+            <h2>Code_G</h2>
+            <p>AI-powered virtual assistant</p>
+        </div>
+    </div>
+</body>
+</html> 

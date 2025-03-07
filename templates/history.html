@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - Code_G</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --sidebar-bg: #6B46C1;
+            --sidebar-hover: #553C9A;
+            --accent-pink: #D53F8C;
+            --text-light: #F7FAFC;
+            --text-dark: #2D3748;
+            --bg-light: #F7FAFC;
+        }
+
+        /* Dark mode variables */
+        .dark-mode {
+            --bg-light: #1A202C;
+            --text-dark: #F7FAFC;
+            --text-light: #F7FAFC;
+            --sidebar-bg: #2D3748;
+            --sidebar-hover: #4A5568;
+        }
+
+        .dark-mode .history-item {
+            background: #2D3748;
+            border-color: #4A5568;
+        }
+
+        .dark-mode .history-title {
+            color: var(--text-light);
+        }
+
+        .dark-mode .history-time {
+            color: #A0AEC0;
+        }
+
+        .dark-mode .search-input {
+            background: #2D3748;
+            border-color: #4A5568;
+            color: var(--text-light);
+        }
+
+        .dark-mode .search-input::placeholder {
+            color: #A0AEC0;
+        }
+
+        .dark-mode .filter-label,
+        .dark-mode .select-all {
+            color: #A0AEC0;
+        }
+
+        .dark-mode .expand-icon {
+            color: #A0AEC0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: var(--bg-light);
+        }
+
+        .sidebar {
+            width: 250px;
+            background: var(--sidebar-bg);
+            color: var(--text-light);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1rem;
+            margin: 0.25rem 0;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-item:hover {
+            background: var(--sidebar-hover);
+        }
+
+        .nav-item.active {
+            background: var(--accent-pink);
+        }
+
+        .main-content {
+            margin-left: 250px;
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            color: var(--accent-pink);
+        }
+
+        .user-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-container {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            padding-left: 2.5rem;
+            border: 1px solid #E2E8F0;
+            border-radius: 2rem;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #718096;
+        }
+
+        .filter-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-left {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-label {
+            color: #718096;
+        }
+
+        .filter-active {
+            color: var(--accent-pink);
+            font-weight: 500;
+        }
+
+        .select-all {
+            color: #718096;
+            text-decoration: none;
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .history-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #E2E8F0;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-item:hover {
+            border-color: var(--accent-pink);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .history-content {
+            flex: 1;
+        }
+
+        .history-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .history-time {
+            color: #718096;
+            font-size: 0.875rem;
+        }
+
+        .expand-icon {
+            color: #718096;
+            transition: transform 0.3s;
+        }
+
+        .history-item:hover .expand-icon {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">Code-G</div>
+        <nav>
+            <div class="nav-item">
+                <i class="fas fa-code"></i>
+                AI coding
+            </div>
+            <div class="nav-item active">
+                <i class="fas fa-history"></i>
+                History
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-question-circle"></i>
+                Why Custom was revolutionary?
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-utensils"></i>
+                Healthy dinner recipes
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-laugh"></i>
+                Tell me a joke
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-th"></i>
+                View all
+            </div>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="header">
+            <h1 class="page-title">History</h1>
+            <div class="user-controls">
+                <button id="theme-toggle" class="nav-item theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Search your topic history here...">
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-left">
+                <span class="filter-label">All</span>
+                <span class="filter-active">AI coding</span>
+            </div>
+            <a href="#" class="select-all">Select all</a>
+        </div>
+
+        <div class="history-list">
+            <div class="history-item">
+                <div class="history-content">
+                    <div class="history-title">Romania weather in September</div>
+                    <div class="history-time">2 days ago</div>
+                </div>
+                <i class="fas fa-chevron-right expand-icon"></i>
+            </div>
+
+            <div class="history-item">
+                <div class="history-content">
+                    <div class="history-title">Healthy dinner recipes</div>
+                    <div class="history-time">3 days ago</div>
+                </div>
+                <i class="fas fa-chevron-right expand-icon"></i>
+            </div>
+
+            <div class="history-item">
+                <div class="history-content">
+                    <div class="history-title">Tell me a joke</div>
+                    <div class="history-time">1 week ago</div>
+                </div>
+                <i class="fas fa-chevron-right expand-icon"></i>
+            </div>
+        </div>
+    </main>
+
+    <!-- Theme Manager -->
+    <script src="/static/js/theme.js"></script>
+    <script>
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        const historyItems = document.querySelectorAll('.history-item');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            historyItems.forEach(item => {
+                const title = item.querySelector('.history-title').textContent.toLowerCase();
+                if (title.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
