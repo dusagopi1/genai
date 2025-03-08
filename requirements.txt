@@ -4,3 +4,6 @@ Flask-Bcrypt==1.0.1
 requests==2.32.3
 pymongo==4.11.2
 gunicorn
+transformers==4.23.1
+torch==1.10.0
+flask_cors==3.1.1
