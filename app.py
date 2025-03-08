@@ -4,7 +4,7 @@ import requests
 app = Flask(__name__)
 
 # API URL (Update with your live URL)
-API_URL = "https://a796-34-169-214-95.ngrok-free.app/generate"
+API_URL = "https://9b73-34-143-243-116.ngrok-free.app/generate"
 
 @app.route("/", methods=["GET", "POST"])
 def index():
