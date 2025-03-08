@@ -3,3 +3,4 @@ Flask-PyMongo==3.0.1
 Flask-Bcrypt==1.0.1
 requests==2.32.3
 pymongo==4.11.2
+gunicorn
